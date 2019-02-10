@@ -1,13 +1,22 @@
+ISO:=texlive2016-20160523.iso
+
+
 # Increase memory to deal with large iso
-build: # mount-iso 
-	docker build . -t urdu-textbook -m 6g
+build: build/iso
+	cd build; \
+	docker build . -t urdu-textbook -m 10g
 
-mount-iso: iso
-	mkdir iso
-	sudo mount -o loop texlive2016-20160523.iso ./iso/
+build/iso: ${ISO}
+	mkdir -p build/iso
+	sudo mount -o loop ${ISO} ./build/iso/
 
-iso: texlive2016-20160523.iso
+${ISO}:
+	wget "ftp://tug.org/historic/systems/texlive/2016/${ISO}"
 
-texlive2016-20160523.iso:
-	wget "ftp://tug.org/historic/systems/texlive/2016/texlive2016-20160523.iso"
 
+unmount:
+	sudo umount ./build/iso
+	rm -r ./build/iso
+
+
+.PHONY: build mount-iso umount
