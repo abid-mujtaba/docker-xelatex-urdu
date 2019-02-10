@@ -1,12 +1,11 @@
 FROM alpine:3.5
 
 
-COPY texlive.profile /tmp/
 
-RUN    mkdir /tmp/iso
-
-COPY   iso/* /tmp/iso/
-RUN    ls /tmp/iso
+# RUN    mkdir /tmp/iso
+#
+# COPY   iso/* /tmp/iso/
+# RUN    ls /tmp/iso
 
 
 # RUN    mkdir /tmp/iso
