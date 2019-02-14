@@ -1,4 +1,5 @@
 ISO:=texlive2016-20160523.iso
+BIN:=texlive-20160523-bin
 
 
 # Increase memory to deal with large iso
@@ -19,4 +20,22 @@ unmount:
 	rm -r ./build/iso
 
 
-.PHONY: build mount-iso umount
+# Unpack only the x86_64-linux bin files
+bin: ${BIN}.tar.xz build/src/bin
+	tar -xvf ${BIN}.tar.xz ${BIN}/x86_64-linux
+	mv ${BIN}/x86_64-linux build/src/bin/
+
+
+# Fetch the bin tar-ball and confirm its integrity
+${BIN}.tar.xz:
+	wget "ftp://tug.org/historic/systems/texlive/2016/${BIN}.tar.xz"
+	wget "ftp://tug.org/historic/systems/texlive/2016/${BIN}.tar.xz.sha512"
+
+	sha512sum -c ${BIN}.tar.xz.sha512
+
+
+build/src/bin:
+	mkdir -p build/src/bin
+
+
+.PHONY: build mount-iso umount bin
