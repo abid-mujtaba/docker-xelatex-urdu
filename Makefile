@@ -1,5 +1,9 @@
 ISO:=texlive2016-20160523.iso
 BIN:=texlive-20160523-bin
+IMG:=urdu-textbook
+
+shell:
+	docker run -it -v ${CURDIR}/build/src/bin/x86_64-linux:/usr/local/texlive/2016/bin -v /tmp/build:/tmp/build ${IMG} bash
 
 
 # Increase memory to deal with large iso
