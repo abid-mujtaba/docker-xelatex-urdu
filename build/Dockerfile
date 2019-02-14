@@ -1,6 +1,4 @@
-FROM alpine:3.5
-
-
+FROM ubuntu:18.04
 
 # RUN    mkdir /tmp/iso
 #
