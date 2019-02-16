@@ -1,8 +1,9 @@
 BIN:=texlive-20160523-bin
-TEXMF:=texlive-20160523b-texmf
+TEXMF:=texlive-20160523-texmf
 IMG:=urdu-textbook
 
 SRC:=build/src
+SRC-TEXMF:=${SRC}/bin/share/texmf
 
 shell:
 	docker run -it -v /tmp/build:/tmp/build ${IMG} bash
@@ -35,7 +36,16 @@ build/src/bin:
 	mkdir -p $@
 
 
-texmf: ${TEXMF}.tar.xz build/src/texmf
+texmf: ${SRC-TEXMF}/web2c/texmf.cnf
+	
+
+${SRC-TEXMF}/web2c/texmf.cnf: ${TEXMF}
+	cp ${TEXMF}/texmf-dist/web2c/texmf.cnf ${SRC-TEXMF}/web2c/
+
+
+${TEXMF}:
+#	# Note the difference in spelling between the tar file and the extracted folder
+	tar -xvf texlive-20160523b-texmf.tar.xz
 
 
 ${TEXMF}.tar.xz:
@@ -45,7 +55,11 @@ ${TEXMF}.tar.xz:
 	sha512sum -c ${TEXMF}.tar.xz.sha512
 
 
-build/src/texmf:
+${SRC}/texmf:
+	mkdir -p $@
+
+
+${SRC-TEXMF}/web2c:
 	mkdir -p $@
 
 
