@@ -5,7 +5,7 @@ IMG:=urdu-textbook
 SRC:=build/src
 
 shell:
-	docker run -it -v ${CURDIR}/build/src/bin/x86_64-linux:/usr/local/texlive/2016/bin -v /tmp/build:/tmp/build ${IMG} bash
+	docker run -it -v /tmp/build:/tmp/build ${IMG} bash
 
 
 build: 
