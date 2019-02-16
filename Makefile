@@ -1,5 +1,6 @@
 ISO:=texlive2016-20160523.iso
 BIN:=texlive-20160523-bin
+TEXMF:=texlive-20160523b-texmf
 IMG:=urdu-textbook
 
 shell:
@@ -40,6 +41,20 @@ ${BIN}.tar.xz:
 
 build/src/bin:
 	mkdir -p build/src/bin
+
+
+texmf: ${TEXMF}.tar.xz build/src/texmf
+
+
+${TEXMF}.tar.xz:
+	wget "ftp://tug.org/historic/systems/texlive/2016/${TEXMF}.tar.xz"
+	wget "ftp://tug.org/historic/systems/texlive/2016/${TEXMF}.tar.xz.sha512"
+
+	sha512sum -c ${TEXMF}.tar.xz.sha512
+
+
+build/src/texmf:
+	mkdir -p $@
 
 
 .PHONY: build mount-iso umount bin
