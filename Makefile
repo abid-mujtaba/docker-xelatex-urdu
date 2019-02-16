@@ -1,4 +1,3 @@
-ISO:=texlive2016-20160523.iso
 BIN:=texlive-20160523-bin
 TEXMF:=texlive-20160523b-texmf
 IMG:=urdu-textbook
@@ -9,22 +8,9 @@ shell:
 	docker run -it -v ${CURDIR}/build/src/bin/x86_64-linux:/usr/local/texlive/2016/bin -v /tmp/build:/tmp/build ${IMG} bash
 
 
-# Increase memory to deal with large iso
-build: build/iso
+build: 
 	cd build; \
-	docker build . -t urdu-textbook -m 10g
-
-build/iso: ${ISO}
-	mkdir -p build/iso
-	sudo mount -o loop ${ISO} ./build/iso/
-
-${ISO}:
-	wget "ftp://tug.org/historic/systems/texlive/2016/${ISO}"
-
-
-unmount:
-	sudo umount ./build/iso
-	rm -r ./build/iso
+	docker build . -t urdu-textbook
 
 
 # Unpack only the x86_64-linux bin files
@@ -46,7 +32,7 @@ ${BIN}.tar.xz:
 
 
 build/src/bin:
-	mkdir -p build/src/bin
+	mkdir -p $@
 
 
 texmf: ${TEXMF}.tar.xz build/src/texmf
@@ -63,4 +49,4 @@ build/src/texmf:
 	mkdir -p $@
 
 
-.PHONY: build mount-iso umount bin
+.PHONY: build umount bin
