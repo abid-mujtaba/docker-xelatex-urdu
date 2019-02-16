@@ -3,6 +3,8 @@ BIN:=texlive-20160523-bin
 TEXMF:=texlive-20160523b-texmf
 IMG:=urdu-textbook
 
+SRC:=build/src
+
 shell:
 	docker run -it -v ${CURDIR}/build/src/bin/x86_64-linux:/usr/local/texlive/2016/bin -v /tmp/build:/tmp/build ${IMG} bash
 
@@ -26,9 +28,13 @@ unmount:
 
 
 # Unpack only the x86_64-linux bin files
-bin: ${BIN}.tar.xz build/src/bin
+bin: ${BIN}/x86_64-linux ${SRC}/bin
+	cp ${BIN}/x86_64-linux/pdftex ${SRC}/bin/
+	cd ${SRC}/bin; ln -s pdftex pdflatex
+
+${BIN}/x86_64-linux:
+	# ${BIN}.tar.xz build/src/bin
 	tar -xvf ${BIN}.tar.xz ${BIN}/x86_64-linux
-	mv ${BIN}/x86_64-linux build/src/bin/
 
 
 # Fetch the bin tar-ball and confirm its integrity
