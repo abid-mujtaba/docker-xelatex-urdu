@@ -4,3 +4,5 @@ build/iso
 build/src
 
 texlive-*
+
+src-tree.txt
