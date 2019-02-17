@@ -5,7 +5,11 @@ IMG:=urdu-textbook
 SRC:=build/src
 SRC-TEXMF:=${SRC}/bin/share/texmf
 
-shell:
+
+test: build
+	docker run -it -v /tmp/build:/tmp/build ${IMG} pdflatex /tmp/build/test.tex
+
+shell: build
 	docker run -it -v /tmp/build:/tmp/build ${IMG} bash
 
 
@@ -18,6 +22,7 @@ build:
 bin: ${BIN}/x86_64-linux ${SRC}/bin
 	cp ${BIN}/x86_64-linux/pdftex ${SRC}/bin/
 	cd ${SRC}/bin; ln -s pdftex pdflatex
+	cp ${BIN}/x86_64-linux/mktexfmt ${SRC}/bin/
 
 ${BIN}/x86_64-linux:
 	# ${BIN}.tar.xz build/src/bin
