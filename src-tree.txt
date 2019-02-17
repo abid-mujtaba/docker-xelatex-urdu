@@ -1,0 +1,31 @@
+build/src/
+├── texlive
+│   └── bin
+│       ├── fmtutil -> share/texmf/scripts/texlive/fmtutil.pl
+│       ├── fmtutil-sys -> fmtutil-sys.sh
+│       ├── fmtutil-sys.sh
+│       ├── kpsewhich
+│       ├── mktexfmt -> fmtutil
+│       ├── mktexlsr
+│       ├── pdflatex -> pdftex
+│       ├── pdftex
+│       ├── share
+│       │   └── texmf
+│       │       ├── latex
+│       │       │   └── latexconfig
+│       │       │       └── pdflatex.ini
+│       │       ├── scripts
+│       │       │   └── texlive
+│       │       │       └── fmtutil.pl
+│       │       └── web2c
+│       │           ├── fmtutil.cnf
+│       │           └── texmf.cnf
+│       ├── texconfig -> texconfig.sh
+│       └── texconfig.sh
+└── tlpkg
+    ├── mktexlsr.pl
+    └── TeXLive
+        ├── TLConfig.pm
+        └── TLUtils.pm
+
+11 directories, 17 files
