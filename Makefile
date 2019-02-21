@@ -1,3 +1,5 @@
+IMG:=urdu-textbook
+
 test: build
 	docker run -it -v /tmp/build:/tmp/build ${IMG} pdflatex /tmp/build/test.tex
 
@@ -7,7 +9,7 @@ shell: build
 
 build: 
 	cd build; \
-	docker build . -t urdu-textbook
+	docker build . -t ${IMG}
 
 
 .PHONY: build shell test
