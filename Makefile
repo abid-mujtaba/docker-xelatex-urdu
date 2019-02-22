@@ -1,14 +1,16 @@
 IMG:=urdu-textbook
+WORKDIR:=/tmp/build		# As defined in the Dockerfile
+
 
 test: build
-	docker run -it -v /tmp/build:/tmp/build ${IMG} pdflatex /tmp/build/test.tex
+	docker run -it -v ${CURDIR}:${WORKDIR} ${IMG} pdflatex test.tex
+
 
 shell: build
-	docker run -it -v /tmp/build:/tmp/build ${IMG} bash
+	docker run -it -v ${CURDIR}:${WORKDIR} ${IMG} bash
 
 
 build: 
-	cd build; \
 	docker build . -t ${IMG}
 
 

@@ -5,3 +5,5 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get clean
 
 RUN apt-get -y install texlive-full
+
+WORKDIR /tmp/build
